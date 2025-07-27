@@ -1,0 +1,55 @@
+﻿@model IEnumerable<JQueryCoreMVCCrudsOperations.Models.TransactionModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BenificiaryName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+
+                <a onclick="showInPopup('@Url.Action("AddorEdit", "TransactionModels", null, Context.Request.Scheme)','New Transaction')" class="btn btn-success text-white"><i class="fa fa-random"></i>New Transaction</a>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BenificiaryName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    <a onclick="showInPopup('@Url.Action("AddorEdit", "TransactionModels", new { id = item.TransactionId }, Context.Request.Scheme)','Update Transaction')"
+                       class="btn btn-info text-white"><i class="fa fa-pencil"></i> Edit</a>
+                    <form asp-action="Delete" asp-route-id="@item.TransactionId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash"></i> Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
